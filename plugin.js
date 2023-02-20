@@ -11,7 +11,8 @@ class YaGamesExtension {
           // It corresponds to the class method with the same name.
           opcode: 'initsdk',
           blockType: Scratch.BlockType.COMMAND,
-          text: 'Initialize SDK'
+          text: 'Initialize SDK',
+          arguments: {}
         }
       ]
     };
