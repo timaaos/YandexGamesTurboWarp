@@ -112,6 +112,7 @@
         window.triggerIRW = true;
       }
       triggerIFC () {
+        this.undeafAE();
         window.triggerIFC = true;
       }
       isRewardedWatched () {
@@ -194,8 +195,15 @@
       dataloaded () {
         return ((window.ysdkplayer != undefined) && window.ysdkdata != undefined);
       }
+      deafAE () {
+        Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
+      }
+      undeafAE () {
+        Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
+      }
       showfullscreen () {
         window.isfullscreenclosed = false;
+        this.deafAE();
         if(window.ysdkdebug){
             alert("Fullscreen ad!");
             window.isfullscreenclosed = true;
@@ -220,6 +228,7 @@
       showrewarded () {
         window.isrewardedwatched = false;
         window.isrewarded = false;
+        this.deafAE();
         if(window.ysdkdebug){
             var pr = prompt('DEBUG Rewarded Ad! Write C to close it, write R to get trigger reward.');
             if(pr.toLowerCase() == 'c'){
@@ -244,6 +253,7 @@
                 },
                 onClose: () => {
                     window.isrewardedwatched = true;
+                    this.undeafAE();
                     this.triggerIRW();
                 }, 
                 onError: (e) => {
