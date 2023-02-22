@@ -13,4 +13,4 @@
 ## Как начать использовать?
 [См. документацию](https://github.com/timaaos/YandexGamesTurboWarp/wiki/%D0%9A%D0%B0%D0%BA-%D0%BD%D0%B0%D1%87%D0%B0%D1%82%D1%8C-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C)
 ## Документация
-[Документация на Github Wiki](https://github.com/timaaos/YandexGamesTurboWarp/wiki/%D0%94%D0%BE%D0%BC)
+[Документация на Github Wiki](https://github.com/timaaos/YandexGamesTurboWarp/wiki)
