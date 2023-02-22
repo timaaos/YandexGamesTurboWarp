@@ -5,11 +5,17 @@
         return {
            id: 'yagames',
            name: 'Yandex Games SDK',
+           color1: '#4C1CBA',
            blocks: [
               {
                   opcode: 'initsdk',
                   blockType: Scratch.BlockType.COMMAND,
                   text: 'Initialize YaGames SDK'
+              },
+              {
+                  opcode: 'setdebug',
+                  blockType: Scratch.BlockType.COMMAND,
+                  text: 'Enable debug mode'
               },
               {
                   opcode: 'getsavedvar',
@@ -65,6 +71,11 @@
         };
       }
       initsdk () {
+        if(window.ysdkdebug == true){
+            window.ysdk = {};
+            window.ysdkplayer = {};
+            return;
+        }
           var script = document.createElement("script");
           script.src = "https://yandex.ru/games/sdk/v2";
           document.head.appendChild(script);
@@ -78,6 +89,8 @@
                     window.ysdkplayer = player;
                     console.log(window.ysdkplayer);
                     console.log();
+                }).catch((err) => {
+                    
                 });
               });
               console.log("Initialized YaGames!");
@@ -90,7 +103,13 @@
                 window.ysdkdata = data;
                 console.log("Succesfully loaded data!");
             });
+        }else{
+            window.ysdkdebug = true;
+            window.ysdkdata = {};
         }
+      }
+      setdebug () {
+        window.ysdkdebug = true;
       }
       setsavedvar (args) {
         window.ysdkdata[args.NAME] = args.VALUE;
@@ -112,7 +131,7 @@
         return (window.ysdk != undefined);
       }
       dataloaded () {
-        return (window.ysdkplayer != undefined && window.ysdkdata != undefined);
+        return ((window.ysdkplayer != undefined) && window.ysdkdata != undefined);
       }
       showfullscreen () {
           if(window.ysdk != undefined){
