@@ -66,9 +66,70 @@
                 opcode: 'loadvars',
                 blockType: Scratch.BlockType.COMMAND,
                 text: 'Load progress'
+              },
+              {
+                opcode: 'showfullscreen',
+                blockType: Scratch.BlockType.COMMAND,
+                text: 'Show fullscreen ad'
+              },
+              {
+                opcode:'whenFullscreenClosed',
+                blockType: Scratch.BlockType.HAT,
+                func: 'isFullscreenClosed',
+                text: 'When fullscreen ad closed'
+              },
+              {
+                opcode: 'fullscreenClosed',
+                blockType: Scratch.BlockType.BOOLEAN,
+                text: 'Is fullscreen ad closed?'
+              },
+              {
+                opcode: 'showrewarded',
+                blockType: Scratch.BlockType.COMMAND,
+                text: 'Show rewarded ad'
+              },
+              {
+                opcode:'whenRewardedWatched',
+                blockType: Scratch.BlockType.HAT,
+                func: 'isRewardedWatched',
+                text: 'When rewarded ad shown'
+              },
+              {
+                opcode: 'rewardedRewarded',
+                blockType: Scratch.BlockType.BOOLEAN,
+                text: 'Did Rewarded Ad give reward?'
               }
            ]
         };
+      }
+      whenRewardedWatched() {
+        console.log("wathced!");
+      }
+      rewardedRewarded () {
+        return (window.isrewarded == true);
+      }
+      triggerIRW () {
+        window.triggerIRW = true;
+      }
+      triggerIFC () {
+        window.triggerIFC = true;
+      }
+      isRewardedWatched () {
+        if(window.triggerIRW){
+            window.triggerIRW = false;
+            return true;
+        }
+        return false;
+      }
+      isFullscreenClosed () {
+        if(window.triggerIFC){
+            window.triggerIFC = false;
+            return true;
+        }
+        return false;
+      }
+      fullscreenClosed () {
+        return (window.isfullscreenclosed == true);
       }
       initsdk () {
         if(window.ysdkdebug == true){
@@ -134,9 +195,63 @@
         return ((window.ysdkplayer != undefined) && window.ysdkdata != undefined);
       }
       showfullscreen () {
-          if(window.ysdk != undefined){
-            window.ysdk.adv.showFullscreenAdv();
-          }
+        window.isfullscreenclosed = false;
+        if(window.ysdkdebug){
+            alert("Fullscreen ad!");
+            window.isfullscreenclosed = true;
+            this.triggerIFC();
+            return;
+        }
+        if(window.ysdk != undefined){
+          window.ysdk.adv.showFullscreenAdv({
+              callbacks: {
+                  onClose: function(wasShown) {
+                    window.isfullscreenclosed = true;
+                    this.triggerIFC();
+                  },
+                  onError: function(error) {
+                      window.isfullscreenclosed = true;
+                      this.triggerIFC();
+                  }
+              }
+          })
+        }
+      }
+      showrewarded () {
+        window.isrewardedwatched = false;
+        window.isrewarded = false;
+        if(window.ysdkdebug){
+            var pr = prompt('DEBUG Rewarded Ad! Write C to close it, write R to get trigger reward.');
+            if(pr.toLowerCase() == 'c'){
+                window.isrewardedwatched = true;
+                window.isrewarded = false;
+            }else if(pr.toLowerCase() == 'r'){
+                window.isrewardedwatched = true;
+                window.isrewarded = true;
+            }
+            this.triggerIRW();
+            return;
+        }
+        window.ysdk.adv.showRewardedVideo({
+            callbacks: {
+                onOpen: () => {
+                  window.isrewardedwatched = false;
+                  window.isrewarded = false;
+                },
+                onRewarded: () => {
+                    window.isrewarded = true;
+                    this.triggerIRW();
+                },
+                onClose: () => {
+                    window.isrewardedwatched = true;
+                    this.triggerIRW();
+                }, 
+                onError: (e) => {
+                    window.isrewardedwatched = false;
+                    window.isrewarded = false;
+                }
+            }
+        });
       }
     }
     Scratch.extensions.register(new YaGamesSDKExtension());
