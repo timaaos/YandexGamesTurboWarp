@@ -26,3 +26,6 @@ python -m http.server
 https://turbowarp.org/editor?extension=http://localhost:8000/plugin.js
 ```
 Готово! Можно импортировать проект из обычного скретча или создать новый.
+## Примеры
+![image](https://user-images.githubusercontent.com/75538611/220602558-e873d94a-6652-47f4-a31a-34c1cd85b824.png)  
+*Простой кликер с сохранением данных*
