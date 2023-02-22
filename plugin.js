@@ -98,9 +98,37 @@
                 opcode: 'rewardedRewarded',
                 blockType: Scratch.BlockType.BOOLEAN,
                 text: 'Did Rewarded Ad give reward?'
+              },
+              {
+                opcode: 'canRateGame',
+                blockType: Scratch.BlockType.BOOLEAN,
+                text: 'Can rate game?'
+              },
+              {
+                opcode: 'openRatePopup',
+                blockType: Scratch.BlockType.COMMAND,
+                text: 'Open Rating Popup'
               }
            ]
         };
+      }
+      canRateGame() {
+        if(window.ysdkdebug){
+            return !(window.alreadyrated == true);
+        }
+        var can;
+        ysdk.feedback.canReview().then(({ value, reason }) => {
+            can = value;
+        });
+        return can;
+      }
+      openRatePopup() {
+        if(window.ysdkdebug){
+            window.alreadyrated = true;
+            alert('DEBUG Rate our game');
+            return;
+        }
+        ysdk.feedback.requestReview();
       }
       whenRewardedWatched() {
         console.log("wathced!");
