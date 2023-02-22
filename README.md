@@ -1,4 +1,4 @@
-![logo](https://raw.githubusercontent.com/timaaos/YandexGamesTurboWarp/main/C0450376-E79B-476D-A098-B26EDEA5F2E8.png)
+![logo](https://raw.githubusercontent.com/timaaos/YandexGamesTurboWarp/main/logo.png)
 # YandexGamesTurboWarp
 Расширение Yandex Games SDK для Турбоварпа. Не работает в режиме песочницы.
 #### Плюсы:
