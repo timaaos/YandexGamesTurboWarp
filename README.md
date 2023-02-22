@@ -10,22 +10,7 @@
  - Не ООП
  - Без ECS
  - Что вы ещё хотели от скретча?!
-## Как установить
-1. Клонируем репозиторий
-```sh
-git clone https://github.com/timaaos/YandexGamesTurboWarp.git
-cd YandexGamesTurboWarp
-```
-2. Запускаем http сервер на порте 8000 (я использую питоновый http.server)
-```sh
-python -m http.server
-```
-**ВНИМАНИЕ! Чтобы Турбоварп работал с плагином, http сервер должен быть всегда запущен во время разработки/упаковывания**  
-3. Заходим в Турбоварп через браузер
-```
-https://turbowarp.org/editor?extension=http://localhost:8000/plugin.js
-```
-Готово! Можно импортировать проект из обычного скретча или создать новый.
-## Примеры
-![image](https://user-images.githubusercontent.com/75538611/220602558-e873d94a-6652-47f4-a31a-34c1cd85b824.png)  
-*Простой кликер с сохранением данных*
+## Как начать использовать?
+[См. документацию](https://github.com/timaaos/YandexGamesTurboWarp/wiki/%D0%9A%D0%B0%D0%BA-%D0%BD%D0%B0%D1%87%D0%B0%D1%82%D1%8C-%D0%B8%D1%81%D0%BF%D0%BE%D0%BB%D1%8C%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D1%8C)
+## Документация
+[Документация на Github Wiki](https://github.com/timaaos/YandexGamesTurboWarp/wiki/%D0%94%D0%BE%D0%BC)
