@@ -210,10 +210,9 @@
         return window.ysdkdata[args.NAME] || args.DEFVAL;
       }
       savevars () {
-        if(window.ysdkplayer != undefined && window.ysdkdata != undefined)
-              window.ysdkplayer.setData(window.ysdkdata, true).catch((e) => {
-                console.log("Successfully saved data!");
-              }).then(() => {
+        if(window.ysdkplayer != undefined && window.ysdkdata != undefined && window.savedData != window.ysdkdata)
+              window.ysdkplayer.setData(window.ysdkdata, true).then(() => {
+                  window.savedData = window.ysdkdata;
                   console.log("Successfully saved data!");
               });
       }
