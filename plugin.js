@@ -68,6 +68,11 @@
                 text: 'Load progress'
               },
               {
+                opcode: 'resetprogress',
+                blockType: Scratch.BlockType.COMMAND,
+                text: 'Reset progress'
+              },
+              {
                 opcode: 'showfullscreen',
                 blockType: Scratch.BlockType.COMMAND,
                 text: 'Show fullscreen ad'
@@ -215,6 +220,14 @@
                   console.log("Successfully saved data!");
               });
       }
+      resetprogress () {
+        window.ysdkdata = {};
+        if(window.ysdkplayer != undefined && window.ysdkdata != undefined && window.savedData !== JSON.stringify(window.ysdkdata))
+              window.ysdkplayer.setData(window.ysdkdata, true).then(() => {
+                  window.savedData = JSON.stringify(window.ysdkdata);
+                  console.log("Successfully saved data!");
+              });
+      }
       sdkenabled () {
         return (window.ysdk != undefined);
       }
@@ -233,7 +246,8 @@
         if(window.ysdkdebug == true){
             alert("Fullscreen ad!");
             window.isfullscreenclosed = true;
-            this.triggerIFC();
+            this.undeafAE();
+            window.triggerIFC = true;
             return;
         }
         if(window.ysdk != undefined){
@@ -241,11 +255,13 @@
               callbacks: {
                   onClose: function(wasShown) {
                     window.isfullscreenclosed = true;
-                    this.triggerIFC();
+                    window.triggerIFC = true;
+                    Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
                   },
                   onError: function(error) {
-                      window.isfullscreenclosed = true;
-                      this.triggerIFC();
+                      window.isfullscreenclosed = false;
+                      window.triggerIFC = true;
+                      Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
                   }
               }
           })
