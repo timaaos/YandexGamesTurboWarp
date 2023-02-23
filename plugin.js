@@ -161,6 +161,7 @@
         return (window.isfullscreenclosed == true);
       }
       initsdk () {
+        window.savedData = "";
         if(window.ysdkdebug == true){
             window.ysdk = {};
             window.ysdkplayer = {};
@@ -178,7 +179,6 @@
                     var player = _player;
                     window.ysdkplayer = player;
                     console.log(window.ysdkplayer);
-                    console.log();
                 }).catch((err) => {
                     
                 });
@@ -190,7 +190,6 @@
         if(window.ysdkdebug != true){
           if(window.ysdkplayer != undefined){
               var data = await window.ysdkplayer.getData();
-              console.log(window.ysdkplayer, data);
               window.ysdkdata = data;
               console.log("Succesfully loaded data!");
           }
@@ -210,9 +209,9 @@
         return window.ysdkdata[args.NAME] || args.DEFVAL;
       }
       savevars () {
-        if(window.ysdkplayer != undefined && window.ysdkdata != undefined && window.savedData != window.ysdkdata)
+        if(window.ysdkplayer != undefined && window.ysdkdata != undefined && window.savedData !== JSON.stringify(window.ysdkdata))
               window.ysdkplayer.setData(window.ysdkdata, true).then(() => {
-                  window.savedData = window.ysdkdata;
+                  window.savedData = JSON.stringify(window.ysdkdata);
                   console.log("Successfully saved data!");
               });
       }
