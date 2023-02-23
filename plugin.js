@@ -189,14 +189,13 @@
       async loadvars () {
         if(window.ysdkdebug != true){
           if(window.ysdkplayer != undefined){
-              var data = window.ysdkplayer.getData().then((data) => {
-                  console.log(window.ysdkplayer, data);
-                  window.ysdkdata = data;
-                  console.log("Succesfully loaded data!");
-              });
-          }else{
-              window.ysdkdata = {};
+              var data = await window.ysdkplayer.getData();
+              console.log(window.ysdkplayer, data);
+              window.ysdkdata = data;
+              console.log("Succesfully loaded data!");
           }
+        }else{
+          window.ysdkdata = {};
         }
       }
       setdebug () {
@@ -211,13 +210,12 @@
         return window.ysdkdata[args.NAME] || args.DEFVAL;
       }
       savevars () {
-        if(window.ysdkplayer != undefined && window.ysdkdata != undefined){
-            window.ysdkplayer.setData(window.ysdkdata, true).then(() => {
+        if(window.ysdkplayer != undefined && window.ysdkdata != undefined)
+              window.ysdkplayer.setData(window.ysdkdata, true).catch((e) => {
                 console.log("Successfully saved data!");
-            }).catch((err) => {
-                console.log("Couldnt save data!")
-            });
-        }
+              }).then(() => {
+                  console.log("Successfully saved data!");
+              });
       }
       sdkenabled () {
         return (window.ysdk != undefined);
