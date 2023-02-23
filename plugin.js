@@ -113,7 +113,7 @@
         };
       }
       canRateGame() {
-        if(window.ysdkdebug){
+        if(window.ysdkdebug == true){
             return !(window.alreadyrated == true);
         }
         var can;
@@ -123,7 +123,7 @@
         return can;
       }
       openRatePopup() {
-        if(window.ysdkdebug){
+        if(window.ysdkdebug == true){
             window.alreadyrated = true;
             alert('DEBUG Rate our game');
             return;
@@ -187,18 +187,20 @@
           }
       }
       async loadvars () {
-        if(window.ysdkplayer != undefined){
-            var data = window.ysdkplayer.getData().then((data) => {
-                console.log(window.ysdkplayer, data);
-                window.ysdkdata = data;
-                console.log("Succesfully loaded data!");
-            });
-        }else{
-            window.ysdkdebug = true;
-            window.ysdkdata = {};
+        if(window.ysdkdebug != true){
+          if(window.ysdkplayer != undefined){
+              var data = window.ysdkplayer.getData().then((data) => {
+                  console.log(window.ysdkplayer, data);
+                  window.ysdkdata = data;
+                  console.log("Succesfully loaded data!");
+              });
+          }else{
+              window.ysdkdata = {};
+          }
         }
       }
       setdebug () {
+        window.alreadyrated = false;
         window.ysdkdebug = true;
       }
       setsavedvar (args) {
@@ -232,7 +234,7 @@
       showfullscreen () {
         window.isfullscreenclosed = false;
         this.deafAE();
-        if(window.ysdkdebug){
+        if(window.ysdkdebug == true){
             alert("Fullscreen ad!");
             window.isfullscreenclosed = true;
             this.triggerIFC();
@@ -257,7 +259,7 @@
         window.isrewardedwatched = false;
         window.isrewarded = false;
         this.deafAE();
-        if(window.ysdkdebug){
+        if(window.ysdkdebug == true){
             var pr = prompt('DEBUG Rewarded Ad! Write C to close it, write R to get trigger reward.');
             if(pr.toLowerCase() == 'c'){
                 window.isrewardedwatched = true;
