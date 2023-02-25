@@ -303,7 +303,6 @@
           onOpen: () => {
             window.isrewardedwatched = false;
             window.isrewarded = false;
-            window.isAdOpened = false;
           },
           onRewarded: () => {
             window.isrewarded = true;
