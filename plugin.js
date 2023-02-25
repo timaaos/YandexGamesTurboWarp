@@ -166,6 +166,16 @@
       return (window.isfullscreenclosed == true);
     }
     initsdk() {
+      window.isAdOpened = false;
+      document.addEventListener('visibilitychange', function () {
+        if(window.isAdOpened == false){
+          if (document.hidden) {
+            Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
+          } else {
+            Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
+          }
+        }
+      }, false);
       window.savedData = "";
       if (window.ysdkdebug == true) {
         window.ysdk = {};
@@ -190,13 +200,6 @@
         });
         console.log("Initialized YaGames!");
       }
-      document.addEventListener('visibilitychange', function () {
-        if (document.hidden) {
-          Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
-        } else {
-          Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
-        }
-      }, false);
     }
     async loadvars() {
       if (window.ysdkdebug != true) {
@@ -249,12 +252,14 @@
     }
     showfullscreen() {
       window.isfullscreenclosed = false;
-      this.deafAE();
+      window.isAdOpened = true;
+      Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
       if (window.ysdkdebug == true) {
         alert("Fullscreen ad!");
         window.isfullscreenclosed = true;
-        this.undeafAE();
+        Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
         window.triggerIFC = true;
+        window.isAdOpened = false;
         return;
       }
       if (window.ysdk != undefined) {
@@ -263,12 +268,13 @@
             onClose: function (wasShown) {
               window.isfullscreenclosed = true;
               window.triggerIFC = true;
+              window.isAdOpened = false;
               Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
             },
             onError: function (error) {
               window.isfullscreenclosed = false;
               window.triggerIFC = true;
-              Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
+              window.isAdOpened = false;
             }
           }
         })
@@ -277,6 +283,7 @@
     showrewarded() {
       window.isrewardedwatched = false;
       window.isrewarded = false;
+      window.isAdOpened = true;
       this.deafAE();
       if (window.ysdkdebug == true) {
         var pr = prompt('DEBUG Rewarded Ad! Write C to close it, write R to get trigger reward.');
@@ -287,6 +294,7 @@
           window.isrewardedwatched = true;
           window.isrewarded = true;
         }
+        window.isAdOpened = false;
         this.triggerIRW();
         return;
       }
@@ -295,19 +303,23 @@
           onOpen: () => {
             window.isrewardedwatched = false;
             window.isrewarded = false;
+            window.isAdOpened = false;
           },
           onRewarded: () => {
             window.isrewarded = true;
+            window.isAdOpened = false;
             this.triggerIRW();
           },
           onClose: () => {
             window.isrewardedwatched = true;
+            window.isAdOpened = false;
             this.undeafAE();
             this.triggerIRW();
           },
           onError: (e) => {
             window.isrewardedwatched = false;
             window.isrewarded = false;
+            window.isAdOpened = false;
           }
         }
       });
