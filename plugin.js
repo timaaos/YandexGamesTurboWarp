@@ -166,6 +166,18 @@
       return (window.isfullscreenclosed == true);
     }
     initsdk() {
+      function onBlur() {
+        if(window.isAdOpened == false){
+          Scratch.vm.runtime.audioEngine.inputNode.gain.value = 0;
+        }
+      };
+      function onFocus(){
+        if(window.isAdOpened == false){
+          Scratch.vm.runtime.audioEngine.inputNode.gain.value = 1;
+        }
+      };
+      window.onfocus = onFocus;
+      window.onblur = onBlur;
       window.isAdOpened = false;
       document.addEventListener('visibilitychange', function () {
         if(window.isAdOpened == false){
