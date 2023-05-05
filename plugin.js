@@ -202,7 +202,7 @@
         await YaGames.init().then(ysdk => {
           window.ysdk = ysdk;
           ysdk.features.LoadingAPI.ready();
-          ysdk.getPlayer().then(_player => {
+          ysdk.getPlayer({scopes: false}).then(_player => {
             var player = _player;
             window.ysdkplayer = player;
             console.log(window.ysdkplayer);
