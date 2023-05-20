@@ -113,9 +113,49 @@
             opcode: 'openRatePopup',
             blockType: Scratch.BlockType.COMMAND,
             text: 'Open Rating Popup'
-          }
+          },
+          {
+            opcode: 'getDeviceType',
+            blockType: Scratch.BlockType.REPORTER,
+            text: 'Device Type'
+          },
+          {
+            opcode: 'isDesktop',
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: 'Is playing on Desktop?'
+          },
         ]
       };
+    }
+    getDeviceType() {
+      if (window.ysdkdebug == true) {
+        return 'desktop';
+      }
+      return ysdk.deviceInfo.type;
+    }
+    isDesktop() {
+      if (window.ysdkdebug == true) {
+        return true;
+      }
+      return ysdk.deviceInfo.isDesktop();
+    }
+    isMobile() {
+      if (window.ysdkdebug == true) {
+        return false;
+      }
+      return ysdk.deviceInfo.isMobile();
+    }
+    isTablet() {
+      if (window.ysdkdebug == true) {
+        return false;
+      }
+      return ysdk.deviceInfo.isTablet();
+    }
+    isTV() {
+      if (window.ysdkdebug == true) {
+        return false;
+      }
+      return ysdk.deviceInfo.isTV();
     }
     canRateGame() {
       if (window.ysdkdebug == true) {
