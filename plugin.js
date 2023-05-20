@@ -124,6 +124,21 @@
             blockType: Scratch.BlockType.BOOLEAN,
             text: 'Is playing on Desktop?'
           },
+          {
+            opcode: 'isMobile',
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: 'Is playing on Mobile?'
+          },
+          {
+            opcode: 'isTablet',
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: 'Is playing on Tablet?'
+          },
+          {
+            opcode: 'isTV',
+            blockType: Scratch.BlockType.BOOLEAN,
+            text: 'Is playing on TV?'
+          },
         ]
       };
     }
