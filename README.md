@@ -1,5 +1,8 @@
 ![logo](https://raw.githubusercontent.com/timaaos/YandexGamesTurboWarp/main/logo.png)
 # YandexGamesTurboWarp
+> [!TIP]  
+> Лучше использовать обновлённую версию плагина от ScratchCraft2:  https://github.com/scratch-craft-2/ya-games-turbowarp  
+  
 Расширение Yandex Games SDK для Турбоварпа. Не работает в режиме песочницы.
 #### Плюсы:
  + Маленький билд
